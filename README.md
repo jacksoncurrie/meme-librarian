@@ -44,10 +44,10 @@ button, or trigger a cycle directly:
 
 ```bash
 # Vite dev server (npm run dev)
-curl -X POST http://localhost:5173/agents/librarian/run-cycle
+curl -X POST http://localhost:5173/agents/librarian/librarian/run-cycle
 
 # or, if you are running `wrangler dev` instead
-curl -X POST http://localhost:8787/agents/librarian/run-cycle
+curl -X POST http://localhost:8787/agents/librarian/librarian/run-cycle
 ```
 
 > The cron trigger (`* * * * *`) only fires once the Worker is deployed. Locally,

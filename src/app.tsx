@@ -345,7 +345,7 @@ export default function App() {
     onClose: useCallback(() => setConnected(false), []),
     onMessage: handleMessage,
     onStateUpdate: useCallback((next: LibraryState) => {
-      setState(next);
+      setState((prev) => ({ ...prev, ...next }));
     }, [])
   });
 
@@ -362,8 +362,8 @@ export default function App() {
   }, []);
 
   const counts: Record<string, number> = {};
-  for (const folder of state.folders) counts[folder] = 0;
-  for (const item of state.gallery) {
+  for (const folder of state.folders ?? []) counts[folder] = 0;
+  for (const item of state.gallery ?? []) {
     counts[item.folder] = (counts[item.folder] ?? 0) + 1;
   }
 
@@ -451,7 +451,7 @@ export default function App() {
               All
               <span className="chip-count">{state.gallery.length}</span>
             </button>
-            {state.folders.map((folder) => (
+            {(state.folders ?? []).map((folder) => (
               <button
                 key={folder}
                 className={`chip${filter === folder ? " chip-active" : ""}${

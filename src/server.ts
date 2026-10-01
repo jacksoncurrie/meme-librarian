@@ -44,6 +44,7 @@ interface LibrarianState {
   paused: boolean;
   seenUrls: string[];
   gallery: GalleryItem[];
+  folders: string[];
 }
 
 interface TavilyImage {
@@ -131,6 +132,7 @@ function extractImages(data: TavilyResponse): ImageMeta[] {
 
 export class Librarian extends Agent<Env, LibrarianState> {
   initialState: LibrarianState = {
+    folders: [...FOLDERS],
     queryIndex: 0,
     paused: false,
     seenUrls: [],

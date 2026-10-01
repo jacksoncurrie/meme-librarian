@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "meme-librarian",
+  "main": "src/server.ts",
+  "compatibility_date": "2026-06-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": { "binding": "AI", "remote": true },
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "meme-librarian",
+      "preview_bucket_name": "meme-librarian-dev"
+    }
+  ],
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/agents/*", "/oauth/*", "/img/*", "/api/*"]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "Librarian",
+        "name": "LIBRARIAN"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "new_sqlite_classes": ["Librarian"],
+      "tag": "v1"
+    }
+  ],
+  "triggers": {
+    "crons": ["* * * * *"]
+  }
+}
